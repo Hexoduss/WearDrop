@@ -58,6 +58,7 @@ import com.weardrop.ui.components.ItemImage
 import com.weardrop.ui.components.OutfitCard
 import com.weardrop.ui.components.SectionLabel
 import com.weardrop.ui.components.itemDisplayName
+import com.weardrop.ui.components.reasonTexts
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -66,6 +67,7 @@ fun StylistScreen(
     vm: StylistViewModel = viewModel(),
 ) {
     val anchor by vm.anchor.collectAsStateWithLifecycle()
+    val preferredStyles by vm.preferredStyles.collectAsStateWithLifecycle()
 
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -103,6 +105,10 @@ fun StylistScreen(
                         }
                     }
                 }
+            }
+
+            item {
+                StyleRow(preferredStyles.map { stringResource(it.label) }, onOpenSettings)
             }
 
             anchor?.let { piece ->
@@ -175,9 +181,10 @@ fun StylistScreen(
                 val suggestion = result.suggestion
                 OutfitCard(
                     title = stringResource(suggestion.title.label),
-                    reasons = suggestion.reasons.map { stringResource(it.label) },
+                    reasons = reasonTexts(suggestion.reasons, suggestion.matchedStyle),
                     tip = stringResource(suggestion.tip.label),
                     pieces = suggestion.pieces,
+                    subtitle = suggestion.matchedStyle?.let { stringResource(it.label) },
                 ) {
                     FilledTonalButton(onClick = { vm.save(index) }, enabled = !result.saved) {
                         Icon(
@@ -199,6 +206,23 @@ fun StylistScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun StyleRow(styles: List<String>, onOpenSettings: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            SectionLabel(stringResource(R.string.stylist_style_label))
+            Text(
+                if (styles.isEmpty()) stringResource(R.string.stylist_style_none) else styles.joinToString(" · "),
+                style = if (styles.isEmpty()) MaterialTheme.typography.bodyMedium else MaterialTheme.typography.titleMedium,
+                color = if (styles.isEmpty()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        TextButton(onClick = onOpenSettings) {
+            Text(stringResource(if (styles.isEmpty()) R.string.stylist_style_choose else R.string.stylist_style_change))
         }
     }
 }

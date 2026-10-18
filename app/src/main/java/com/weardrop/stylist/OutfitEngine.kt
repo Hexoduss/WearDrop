@@ -6,6 +6,7 @@ import com.weardrop.data.ItemStatus
 import com.weardrop.data.NamedColor
 import com.weardrop.data.Pattern
 import com.weardrop.data.Season
+import com.weardrop.data.Style
 import com.weardrop.data.categoryEnum
 import com.weardrop.data.colorList
 import com.weardrop.data.patternEnum
@@ -32,6 +33,7 @@ object OutfitEngine {
         val titles: List<OutfitTitle>,
         val accentCount: Int,
         val patterned: Int,
+        val matchedStyle: Style?,
     )
 
     private class Candidate(val pieces: List<ClothingItem>, val evaluation: Evaluation, val total: Double)
@@ -128,6 +130,7 @@ object OutfitEngine {
                 title = title,
                 reasons = evaluation.reasons.take(3),
                 tip = tip,
+                matchedStyle = evaluation.matchedStyle,
             )
         }
     }
@@ -156,6 +159,7 @@ object OutfitEngine {
 
     private val reasonPriority = listOf(
         Reason.ANCHOR,
+        Reason.STYLE,
         Reason.TONAL, Reason.CONTRAST, Reason.POP, Reason.ANALOGOUS, Reason.COMPLEMENTARY, Reason.NEUTRALS,
         Reason.WARM_LAYER, Reason.RAIN, Reason.LIGHT,
         Reason.FORMALITY,
@@ -172,6 +176,7 @@ object OutfitEngine {
         if (anchor != null && pieces.any { it.id == anchor.id }) reasons += Reason.ANCHOR
 
         // --- Colors ---
+        val boldColors = request.preferredStyles.any { StyleProfiles.of(it).boldColors }
         val primaries = pieces.mapNotNull { it.colorList().firstOrNull() }
         val accents = primaries.filter { !it.neutral }.distinct()
         val families = primaries.map { it.family }.distinct()
@@ -210,10 +215,10 @@ object OutfitEngine {
                         reasons += Reason.COMPLEMENTARY
                         harmony = true
                     }
-                    else -> score -= 2.5
+                    else -> score -= if (boldColors) 0.5 else 2.5
                 }
             }
-            else -> score -= 4.0
+            else -> score -= if (boldColors) 1.5 else 4.0
         }
 
         // --- Patterns: one is great, more is busy ---
@@ -271,6 +276,21 @@ object OutfitEngine {
         score -= 2.0 * worn
         if (request.recentlyWorn.isNotEmpty() && worn == 0) reasons += Reason.FRESH
 
+        // --- Favorite styles: reward the outfit for the style it fits best ---
+        var matchedStyle: Style? = null
+        if (request.preferredStyles.isNotEmpty()) {
+            val best = request.preferredStyles
+                .map { style -> style to styleFit(StyleProfiles.of(style), style, pieces, clothes) }
+                .maxByOrNull { it.second }
+            if (best != null) {
+                score += best.second
+                if (best.second >= 1.5) {
+                    matchedStyle = best.first
+                    reasons += Reason.STYLE
+                }
+            }
+        }
+
         // --- Possible titles, best first ---
         val averageFormality = clothes.map { it.formality.toDouble() }.average()
         val titles = buildList {
@@ -291,7 +311,34 @@ object OutfitEngine {
             titles = titles,
             accentCount = accents.size,
             patterned = patterned,
+            matchedStyle = matchedStyle,
         )
+    }
+
+    /** How close an outfit is to a style profile (roughly -3 … +6). */
+    private fun styleFit(
+        profile: StyleProfile,
+        style: Style,
+        pieces: List<ClothingItem>,
+        clothes: List<ClothingItem>,
+    ): Double {
+        var fit = 0.0
+        for (piece in pieces) {
+            val itemStyle = piece.styleEnum()
+            fit += when {
+                itemStyle == null -> 0.0
+                itemStyle == style -> 1.2
+                itemStyle in profile.related -> 0.6
+                itemStyle in profile.opposed -> -0.8
+                else -> 0.0
+            }
+            val primary = piece.colorList().firstOrNull()
+            if (primary != null) fit += if (primary in profile.colors) 0.4 else -0.15
+            if (piece.patternEnum() != Pattern.SOLID && piece.patternEnum() in profile.patterns) fit += 0.5
+        }
+        val averageFormality = clothes.map { it.formality.toDouble() }.average()
+        fit -= 0.5 * abs(averageFormality - profile.formality)
+        return fit
     }
 
     private fun tipsFor(request: OutfitRequest, climate: Climate, evaluation: Evaluation, random: Random): List<Tip> =

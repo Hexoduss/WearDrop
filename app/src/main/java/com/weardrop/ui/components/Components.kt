@@ -44,6 +44,8 @@ import coil.compose.AsyncImage
 import com.weardrop.R
 import com.weardrop.data.ClothingItem
 import com.weardrop.data.NamedColor
+import com.weardrop.data.Style
+import com.weardrop.stylist.Reason
 import com.weardrop.data.categoryEnum
 import com.weardrop.data.colorList
 import java.io.File
@@ -75,6 +77,16 @@ fun itemDisplayName(item: ClothingItem): String {
     val color = item.colorList().firstOrNull()
     val name = if (color == null) category else stringResource(R.string.item_default_name, stringResource(color.label), category)
     return name.replaceFirstChar { it.uppercase() }
+}
+
+/** Localized reason sentences; the style reason mentions the matched style by name. */
+@Composable
+fun reasonTexts(reasons: List<Reason>, matchedStyle: Style?): List<String> = reasons.mapNotNull { reason ->
+    if (reason == Reason.STYLE) {
+        matchedStyle?.let { stringResource(R.string.r_style, stringResource(it.label)) }
+    } else {
+        stringResource(reason.label)
+    }
 }
 
 @Composable

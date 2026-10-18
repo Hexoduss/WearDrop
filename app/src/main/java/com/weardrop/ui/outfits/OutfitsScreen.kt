@@ -49,11 +49,13 @@ import com.weardrop.stylist.Occasion
 import com.weardrop.stylist.OutfitTitle
 import com.weardrop.stylist.Reason
 import com.weardrop.stylist.Tip
+import com.weardrop.stylist.parseMatchedStyle
 import com.weardrop.ui.components.EmptyState
 import com.weardrop.ui.components.ItemImage
 import com.weardrop.ui.components.OutfitCard
 import com.weardrop.ui.components.formatDay
 import com.weardrop.ui.components.itemDisplayName
+import com.weardrop.ui.components.reasonTexts
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,13 +100,18 @@ private fun SavedList(entries: List<SavedEntry>?, vm: OutfitsViewModel) {
             items(entries, key = { it.outfit.id }) { entry ->
                 val outfit = entry.outfit
                 val occasion = Occasion.fromKey(outfit.occasion)?.let { stringResource(it.label) }
+                val matchedStyle = parseMatchedStyle(outfit.reasons)
                 val savedOn = stringResource(R.string.saved_on, formatDay(outfit.createdAt))
                 OutfitCard(
                     title = stringResource(OutfitTitle.fromKey(outfit.title).label),
-                    reasons = Reason.parseList(outfit.reasons).map { stringResource(it.label) },
+                    reasons = reasonTexts(Reason.parseList(outfit.reasons), matchedStyle),
                     tip = Tip.fromKey(outfit.tip)?.let { stringResource(it.label) },
                     pieces = entry.pieces,
-                    subtitle = listOfNotNull(occasion, savedOn).joinToString(" · "),
+                    subtitle = listOfNotNull(
+                        matchedStyle?.let { stringResource(it.label) },
+                        occasion,
+                        savedOn,
+                    ).joinToString(" · "),
                 ) {
                     OutlinedButton(
                         onClick = { vm.wearToday(entry) },

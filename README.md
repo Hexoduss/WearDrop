@@ -15,6 +15,7 @@ WearDrop is a free Android app that turns your wardrobe into a digital closet an
   - pieces worn in the last few days.
 
   Outfits can also be built around a chosen item.
+- **Favorite styles** – pick up to 3 of 25 styles (punk, grunge, rock, glam, gothic, boho, preppy, old money, Y2K, streetwear, minimal, techwear and more). Each style has a profile with typical colors, patterns, formality, and related or opposed styles (`stylist/StyleProfiles.kt`). The Stylist favors outfits that fit your styles, while the occasion and the weather still come first. Items can be tagged with the same styles for more accurate results.
 - **Favorites and history** – save outfits and keep track of what you wore.
 - **Weather-aware** – forecast from [Open-Meteo](https://open-meteo.com), free and keyless.
 - **English and Italian** – follows the system language and can be switched in Settings (per-app language).

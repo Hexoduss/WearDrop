@@ -13,8 +13,8 @@ android {
         applicationId = "com.weardrop"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "3.0"
+        versionCode = 4
+        versionName = "3.1"
 
         // Only ship English (default) and Italian resources.
         resourceConfigurations += listOf("en", "it")

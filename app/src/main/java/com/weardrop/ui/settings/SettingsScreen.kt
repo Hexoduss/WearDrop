@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -21,6 +23,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -44,6 +47,8 @@ import com.weardrop.BuildConfig
 import com.weardrop.R
 import com.weardrop.WearDropApplication
 import com.weardrop.data.AppSettings
+import com.weardrop.data.MAX_PREFERRED_STYLES
+import com.weardrop.data.Style
 import kotlinx.coroutines.flow.StateFlow
 
 class SettingsViewModel(app: Application) : AndroidViewModel(app) {
@@ -51,6 +56,13 @@ class SettingsViewModel(app: Application) : AndroidViewModel(app) {
     val settings: StateFlow<AppSettings> = container.settings.state
 
     fun setCity(value: String) = container.settings.update { it.copy(city = value) }
+
+    /** Adds or removes a favorite style (max [MAX_PREFERRED_STYLES]). */
+    fun toggleStyle(style: Style) = container.settings.update { current ->
+        val styles = current.preferredStyles
+        val next = if (style in styles) styles - style else (styles + style).take(MAX_PREFERRED_STYLES)
+        current.copy(preferredStyles = next)
+    }
 }
 
 /** "" = follow the system language. */
@@ -66,7 +78,7 @@ private fun applyLanguage(tag: String) {
     AppCompatDelegate.setApplicationLocales(locales)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(vm: SettingsViewModel = viewModel()) {
     val settings by vm.settings.collectAsStateWithLifecycle()
@@ -85,6 +97,26 @@ fun SettingsScreen(vm: SettingsViewModel = viewModel()) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
+            SettingsSection(stringResource(R.string.settings_style)) {
+                Text(
+                    stringResource(R.string.settings_style_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                val selected = settings.preferredStyles
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Style.entries.forEach { style ->
+                        val isSelected = style in selected
+                        FilterChip(
+                            selected = isSelected,
+                            onClick = { vm.toggleStyle(style) },
+                            label = { Text(stringResource(style.label)) },
+                            enabled = isSelected || selected.size < MAX_PREFERRED_STYLES,
+                        )
+                    }
+                }
+            }
+
             SettingsSection(stringResource(R.string.settings_language)) {
                 LANGUAGES.forEach { (tag, label) ->
                     Row(

@@ -17,43 +17,55 @@ enum class Occasion(val key: String, @StringRes val label: Int, val formality: D
     CEREMONY("ceremony", R.string.occ_ceremony, 4.8),
     TRAVEL("travel", R.string.occ_travel, 2.0);
 
-    /** How well a style suits this occasion (positive = good fit). */
+    /** How well an item style suits this occasion (positive = good fit). */
     fun styleAffinity(style: Style?): Double = when (this) {
         SPORT -> when (style) {
             Style.SPORTY -> 1.0
-            Style.ELEGANT -> -2.0
-            Style.CLASSIC -> -1.0
+            Style.TECHWEAR -> 0.5
+            Style.SKATER, Style.STREETWEAR -> 0.3
+            Style.ELEGANT, Style.GLAM, Style.BUSINESS -> -2.0
+            Style.CLASSIC, Style.ROMANTIC, Style.OLD_MONEY -> -1.0
             else -> 0.0
         }
         WORK -> when (style) {
+            Style.BUSINESS -> 1.0
             Style.CLASSIC -> 0.7
-            Style.ELEGANT, Style.MINIMAL -> 0.5
+            Style.SMART_CASUAL, Style.ELEGANT, Style.MINIMAL -> 0.5
+            Style.OLD_MONEY, Style.PREPPY -> 0.4
             Style.SPORTY -> -1.5
-            Style.STREETWEAR -> -0.7
+            Style.SKATER, Style.PUNK, Style.GRUNGE -> -1.0
+            Style.STREETWEAR, Style.Y2K -> -0.7
             else -> 0.0
         }
         CEREMONY -> when (style) {
             Style.ELEGANT -> 1.0
-            Style.CLASSIC -> 0.7
+            Style.GLAM, Style.CLASSIC, Style.OLD_MONEY -> 0.7
+            Style.BUSINESS, Style.ROMANTIC -> 0.5
             Style.SPORTY -> -3.0
-            Style.STREETWEAR -> -2.0
-            Style.CASUAL -> -1.0
+            Style.STREETWEAR, Style.SKATER, Style.PUNK, Style.GRUNGE -> -2.0
+            Style.CASUAL, Style.WORKWEAR, Style.UTILITY, Style.TECHWEAR -> -1.0
             else -> 0.0
         }
         DINNER, DATE -> when (style) {
             Style.ELEGANT -> 0.6
-            Style.CLASSIC, Style.MINIMAL -> 0.4
+            Style.ROMANTIC, Style.GLAM, Style.OLD_MONEY -> 0.5
+            Style.CLASSIC, Style.MINIMAL, Style.SMART_CASUAL -> 0.4
             Style.SPORTY -> -1.5
+            Style.WORKWEAR, Style.UTILITY -> -0.5
             else -> 0.0
         }
         NIGHT, DRINKS -> when (style) {
-            Style.ELEGANT, Style.STREETWEAR, Style.MINIMAL -> 0.3
+            Style.GLAM -> 0.6
+            Style.ROCK -> 0.4
+            Style.ELEGANT, Style.STREETWEAR, Style.MINIMAL, Style.PUNK, Style.GOTHIC, Style.Y2K -> 0.3
             Style.SPORTY -> -1.0
             else -> 0.0
         }
         CASUAL, SCHOOL, TRAVEL -> when (style) {
             Style.CASUAL, Style.STREETWEAR -> 0.4
-            Style.ELEGANT -> -0.4
+            Style.SKATER, Style.INDIE, Style.UTILITY, Style.TECHWEAR -> 0.3
+            Style.ELEGANT, Style.GLAM -> -0.4
+            Style.BUSINESS -> -0.6
             else -> 0.0
         }
     }
@@ -80,8 +92,17 @@ enum class OutfitTitle(@StringRes val label: Int) {
     }
 }
 
+/** Prefix used to store the matched style next to the reasons of a saved outfit. */
+const val STYLE_TOKEN = "style="
+
+/** Reads the matched style back from a saved outfit's reasons. */
+fun parseMatchedStyle(reasons: String): Style? =
+    reasons.split(',').firstOrNull { it.startsWith(STYLE_TOKEN) }?.let { Style.fromKey(it.removePrefix(STYLE_TOKEN)) }
+
 enum class Reason(@StringRes val label: Int) {
     ANCHOR(R.string.r_anchor),
+    /** Shown with the matched style name ("In line with your punk style"). */
+    STYLE(R.string.r_style),
     NEUTRALS(R.string.r_neutrals),
     POP(R.string.r_pop),
     ANALOGOUS(R.string.r_analogous),
@@ -130,6 +151,8 @@ data class OutfitRequest(
     val recentlyWorn: Set<Long>,
     /** 1–12, used to guess the season when there is no weather. */
     val month: Int,
+    /** The user's favorite styles (up to 3); outfits closer to them score higher. */
+    val preferredStyles: List<Style> = emptyList(),
 )
 
 data class OutfitSuggestion(
@@ -137,4 +160,6 @@ data class OutfitSuggestion(
     val title: OutfitTitle,
     val reasons: List<Reason>,
     val tip: Tip,
+    /** Favorite style this outfit fits best, if it clearly fits one. */
+    val matchedStyle: Style? = null,
 )

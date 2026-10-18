@@ -94,16 +94,38 @@ enum class Pattern(val key: String, @StringRes val label: Int) {
     }
 }
 
+/** The 25 styles users can pick as favorites and assign to items. */
 enum class Style(val key: String, @StringRes val label: Int) {
     CASUAL("casual", R.string.style_casual),
     SPORTY("sporty", R.string.style_sporty),
     ELEGANT("elegant", R.string.style_elegant),
     CLASSIC("classic", R.string.style_classic),
     STREETWEAR("streetwear", R.string.style_streetwear),
-    MINIMAL("minimal", R.string.style_minimal);
+    MINIMAL("minimal", R.string.style_minimal),
+    GLAM("glam", R.string.style_glam),
+    PUNK("punk", R.string.style_punk),
+    GRUNGE("grunge", R.string.style_grunge),
+    ROCK("rock", R.string.style_rock),
+    GOTHIC("gothic", R.string.style_gothic),
+    BOHO("boho", R.string.style_boho),
+    PREPPY("preppy", R.string.style_preppy),
+    OLD_MONEY("old_money", R.string.style_old_money),
+    VINTAGE("vintage", R.string.style_vintage),
+    Y2K("y2k", R.string.style_y2k),
+    ROMANTIC("romantic", R.string.style_romantic),
+    BUSINESS("business", R.string.style_business),
+    SMART_CASUAL("smart_casual", R.string.style_smart_casual),
+    WESTERN("western", R.string.style_western),
+    UTILITY("utility", R.string.style_utility),
+    WORKWEAR("workwear", R.string.style_workwear),
+    SKATER("skater", R.string.style_skater),
+    INDIE("indie", R.string.style_indie),
+    TECHWEAR("techwear", R.string.style_techwear);
 
     companion object {
         fun fromKey(key: String): Style? = entries.firstOrNull { it.key == key }
+
+        fun parseList(keys: String): List<Style> = keys.split(',').mapNotNull { fromKey(it.trim()) }
     }
 }
 

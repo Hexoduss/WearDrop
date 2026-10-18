@@ -13,6 +13,7 @@ import com.weardrop.WearDropApplication
 import com.weardrop.data.ClothingItem
 import com.weardrop.data.ItemStatus
 import com.weardrop.data.SavedOutfit
+import com.weardrop.data.Style
 import com.weardrop.data.WearLog
 import com.weardrop.data.toIdList
 import com.weardrop.data.toIdString
@@ -20,6 +21,7 @@ import com.weardrop.stylist.Occasion
 import com.weardrop.stylist.OutfitEngine
 import com.weardrop.stylist.OutfitRequest
 import com.weardrop.stylist.OutfitSuggestion
+import com.weardrop.stylist.STYLE_TOKEN
 import com.weardrop.stylist.WeatherContext
 import com.weardrop.weather.CityNotFoundException
 import com.weardrop.weather.Weather
@@ -69,6 +71,10 @@ class StylistViewModel(app: Application) : AndroidViewModel(app) {
 
     private val items: StateFlow<List<ClothingItem>> = container.dao.observeItems()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    val preferredStyles: StateFlow<List<Style>> = container.settings.state
+        .map { it.preferredStyles }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, container.settings.state.value.preferredStyles)
 
     val anchor: StateFlow<ClothingItem?> = combine(container.stylistAnchor, items) { id, list ->
         list.firstOrNull { it.id == id && it.status == ItemStatus.READY }
@@ -129,6 +135,7 @@ class StylistViewModel(app: Application) : AndroidViewModel(app) {
                     anchor = anchor.value,
                     recentlyWorn = recentlyWorn,
                     month = LocalDate.now().monthValue,
+                    preferredStyles = container.settings.state.value.preferredStyles,
                 )
                 val suggestions = withContext(Dispatchers.Default) { OutfitEngine.suggest(request) }
                 results = suggestions.map { OutfitResult(it) }
@@ -148,7 +155,10 @@ class StylistViewModel(app: Application) : AndroidViewModel(app) {
                 SavedOutfit(
                     itemIds = suggestion.pieces.map { it.id }.toIdString(),
                     title = suggestion.title.name,
-                    reasons = suggestion.reasons.joinToString(",") { it.name },
+                    reasons = (
+                        suggestion.reasons.map { it.name } +
+                            listOfNotNull(suggestion.matchedStyle?.let { "$STYLE_TOKEN${it.key}" })
+                        ).joinToString(","),
                     tip = suggestion.tip.name,
                     occasion = occasion.key,
                 ),

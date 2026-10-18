@@ -87,12 +87,6 @@
     <string name="pattern_checked">A quadri</string>
     <string name="pattern_floral">A fiori</string>
     <string name="pattern_print">Stampato</string>
-    <string name="style_casual">Casual</string>
-    <string name="style_sporty">Sportivo</string>
-    <string name="style_elegant">Elegante</string>
-    <string name="style_classic">Classico</string>
-    <string name="style_streetwear">Streetwear</string>
-    <string name="style_minimal">Minimal</string>
     <string name="season_warm">Primavera/Estate</string>
     <string name="season_cold">Autunno/Inverno</string>
     <string name="season_all">Tutto l\'anno</string>
@@ -233,4 +227,38 @@
     <string name="settings_about">Informazioni</string>
     <string name="settings_about_text">WearDrop è gratuita e funziona sul telefono: le foto vengono analizzate sul dispositivo e non vengono mai caricate online. Solo il nome della tua città viene inviato a Open-Meteo per le previsioni.</string>
     <string name="settings_version">Versione %1$s</string>
+
+    <!-- Styles -->
+    <string name="style_casual">Casual</string>
+    <string name="style_sporty">Sportivo</string>
+    <string name="style_elegant">Elegante</string>
+    <string name="style_classic">Classico</string>
+    <string name="style_streetwear">Streetwear</string>
+    <string name="style_minimal">Minimal</string>
+    <string name="style_glam">Glamour</string>
+    <string name="style_punk">Punk</string>
+    <string name="style_grunge">Grunge</string>
+    <string name="style_rock">Rock</string>
+    <string name="style_gothic">Gotico</string>
+    <string name="style_boho">Boho chic</string>
+    <string name="style_preppy">Preppy</string>
+    <string name="style_old_money">Old money</string>
+    <string name="style_vintage">Vintage</string>
+    <string name="style_y2k">Y2K</string>
+    <string name="style_romantic">Romantico</string>
+    <string name="style_business">Business</string>
+    <string name="style_smart_casual">Smart casual</string>
+    <string name="style_western">Western</string>
+    <string name="style_utility">Militare</string>
+    <string name="style_workwear">Workwear</string>
+    <string name="style_skater">Skater</string>
+    <string name="style_indie">Indie</string>
+    <string name="style_techwear">Techwear</string>
+    <string name="settings_style">Il tuo stile</string>
+    <string name="settings_style_note">Scegli fino a 3 stili che ami: lo Stylist privilegerà outfit in quella direzione. Assegnare uno stile anche ai capi rende i suggerimenti ancora più precisi.</string>
+    <string name="stylist_style_label">Il tuo stile</string>
+    <string name="stylist_style_none">Scegli i tuoi stili preferiti per avere outfit più nel tuo gusto.</string>
+    <string name="stylist_style_choose">Scegli</string>
+    <string name="stylist_style_change">Cambia</string>
+    <string name="r_style">In linea con il tuo stile %1$s.</string>
 </resources>
