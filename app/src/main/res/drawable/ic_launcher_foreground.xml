@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gruccia stilizzata (area sicura 66dp al centro di 108dp) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M48.5,38 A5.5,5.5 0 1,1 54,43.5 L54,48 M54,48 L31,63.5 Q28.5,66.5 32,67 L76,67 Q79.5,66.5 77,63.5 Z"
+        android:strokeColor="#FBF7F2"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+</vector>
