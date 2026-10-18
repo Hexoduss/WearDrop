@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.asStateFlow
 data class ModelOption(val id: String, val label: String, val description: String)
 
 val MODEL_OPTIONS = listOf(
-    ModelOption("claude-haiku-5-5", "Haiku", "Il più veloce ed economico"),
-    ModelOption("claude-sonnet-5-5", "Sonnet", "Equilibrio tra qualità e costo (consigliato)"),
+    ModelOption("claude-haiku-5-5", "Haiku", "Il più veloce ed economico (consigliato)"),
+    ModelOption("claude-sonnet-5-5", "Sonnet", "Più accurato, costa di più"),
     ModelOption("claude-opus-5-5", "Opus", "Massima qualità, più lento e costoso"),
 )
 
-const val DEFAULT_MODEL = "claude-sonnet-5-5"
+const val DEFAULT_MODEL = "claude-haiku-5-5"
 
 data class AppSettings(
     val apiKey: String = "",

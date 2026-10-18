@@ -1,54 +1,69 @@
-# Armadio AI 2.0
+# WearDrop
 
-App Android (Kotlin + Jetpack Compose): fotografi i tuoi capi, Claude li riconosce e li cataloga, poi ti propone outfit adatti a occasione e meteo, usando solo quello che hai nell'armadio.
+[![Build APK](https://github.com/Hexoduss/WearDrop/actions/workflows/build-apk.yml/badge.svg)](https://github.com/Hexoduss/WearDrop/actions/workflows/build-apk.yml)
 
-## Cosa fa
+App Android per digitalizzare il proprio guardaroba e ricevere proposte di outfit generate dall'AI, a partire dai capi che si possiedono davvero.
 
-- **Armadio**: aggiungi capi dalla fotocamera o dalla galleria (fino a 20 foto alla volta). L'AI riconosce nome, categoria, colori, fantasia, stile, stagione e formalità. Puoi filtrare per categoria e correggere tutto a mano.
-- **Stylist**: scegli l'occasione e l'app recupera da sola il meteo della tua città. Puoi partire da un capo preciso ("crea un outfit con questo capo"). Ricevi 3 outfit con foto, motivazione e un consiglio di styling.
-- **I miei outfit**: preferiti salvati e storico di cosa hai indossato. Lo Stylist evita di riproporti i capi messi negli ultimi 3 giorni.
-- **Impostazioni**: chiave API (con pulsante di verifica), scelta del modello (Haiku, Sonnet o Opus), città per il meteo, preferenze di stile.
+## Funzionalità
 
-## Prima di tutto: la chiave API
+- **Catalogo dei capi** – aggiunta da fotocamera o galleria (fino a 20 foto per volta). Ogni foto viene analizzata da un modello di visione, che estrae nome, categoria, colori, fantasia, stile, stagione e livello di formalità. Tutti i campi sono modificabili a mano.
+- **Stylist** – tre proposte di outfit per occasione, con motivazione e consiglio di styling. Tiene conto del meteo locale, delle preferenze di stile dell'utente e dei capi indossati di recente. Può costruire gli outfit attorno a un capo scelto.
+- **Preferiti e storico** – salvataggio degli outfit e registro di cosa è stato indossato.
+- **Meteo automatico** tramite [Open-Meteo](https://open-meteo.com), senza chiave.
+- Tema chiaro e scuro, interfaccia in italiano.
 
-L'AI funziona con una chiave API di Anthropic, che si **inserisce dentro l'app** (Impostazioni). Non va messa nel codice.
-Creala su https://console.anthropic.com → *API Keys*. Serve un po' di credito: ogni analisi di un capo o richiesta di outfit costa pochi centesimi o meno.
+## Stack
 
-## Installazione — opzione A: senza Android Studio (consigliata)
+- Kotlin, Jetpack Compose (Material 3), Navigation Compose
+- Room per la persistenza locale, Coil per le immagini, OkHttp e kotlinx.serialization per la rete
+- [Claude API](https://docs.anthropic.com) (Messages API con tool use per ottenere output JSON strutturato)
+- minSdk 26, targetSdk 34
 
-Il progetto contiene una build automatica GitHub che crea l'APK per te.
+## Configurazione
 
-1. Crea un account gratuito su https://github.com, poi un nuovo repository (anche privato).
-2. Carica tutto il contenuto della cartella `ArmadioAI` (pulsante *Add file → Upload files*). Assicurati che venga caricata anche la cartella nascosta `.github`. Se il caricamento dal browser la salta, crea a mano il file `.github/workflows/build-apk.yml` (*Add file → Create new file*) e incolla il contenuto.
-3. Apri la scheda **Actions**: la build "Build APK" parte da sola (ci mette circa 5 minuti).
-4. Quando finisce, vai in **Releases** (colonna di destra del repository) e scarica `ArmadioAI.apk` **direttamente dal telefono**.
-5. Apri il file e consenti l'installazione da "origini sconosciute" quando Android lo chiede.
+L'analisi dei capi e le proposte di outfit usano la Claude API di Anthropic, che è **a consumo**. Serve una chiave API personale, creata da [console.anthropic.com](https://console.anthropic.com).
 
-Ogni volta che modifichi il codice su GitHub viene creato un nuovo APK. Tutte le build hanno la stessa firma, quindi puoi installarle sopra la precedente senza perdere l'armadio.
+La chiave si inserisce nell'app (**Impostazioni → Chiave API**) e resta salvata solo sul dispositivo. Non è inclusa nel codice né nell'APK.
 
-## Installazione — opzione B: con Android Studio
+Dalle impostazioni si sceglie anche il modello. Haiku, il predefinito, è il più economico. Sonnet e Opus offrono qualità maggiore a un costo più alto.
 
-1. Installa [Android Studio](https://developer.android.com/studio) e apri la cartella `ArmadioAI`.
-2. Aspetta la fine del Gradle Sync.
-3. Collega il telefono con il debug USB attivo e premi **Run ▶**, oppure usa *Build → Build APK(s)*.
+## Build
 
-## Struttura del codice
+### APK automatico
 
-| Percorso | Ruolo |
-|---|---|
-| `ai/ClaudeClient.kt`, `ai/Prompts.kt` | Chiamate a Claude con output strutturato (tool use): analisi foto e proposte di outfit |
-| `weather/WeatherClient.kt` | Meteo da Open-Meteo (gratis, senza chiave) |
-| `data/` | Database Room (capi, outfit salvati, storico), impostazioni, gestione foto |
-| `ui/wardrobe`, `ui/item`, `ui/stylist`, `ui/outfits`, `ui/settings` | Le schermate, ognuna con il suo ViewModel |
-| `ui/theme/Theme.kt` | Palette (crema, terracotta, oliva) con tema chiaro e scuro |
+A ogni push su `main`, la workflow [`build-apk.yml`](.github/workflows/build-apk.yml) compila un APK e lo pubblica tra le [Releases](https://github.com/Hexoduss/WearDrop/releases). Tutte le build sono firmate con la stessa chiave di debug inclusa nel repository, quindi ogni aggiornamento si installa sopra il precedente.
+
+### In locale
+
+Requisiti: JDK 17 e Android SDK (34), oppure Android Studio.
+
+```bash
+./gradlew assembleDebug
+# output: app/build/outputs/apk/debug/app-debug.apk
+```
+
+## Struttura
+
+```
+app/src/main/java/com/armadioai/
+├── ai/          client Claude e prompt (analisi foto, proposte di outfit)
+├── data/        entità e DAO Room, impostazioni, import delle foto, repository
+├── weather/     client Open-Meteo
+└── ui/
+    ├── wardrobe/   griglia dei capi e aggiunta foto
+    ├── item/       scheda e modifica del capo
+    ├── stylist/    generazione degli outfit
+    ├── outfits/    preferiti e storico
+    ├── settings/   chiave API, modello, città, preferenze
+    └── theme/      palette e tipografia
+```
 
 ## Privacy
 
-Foto e dati restano sul telefono. Una foto viene inviata a Claude solo quando un capo va analizzato. Per gli outfit vengono inviate solo le descrizioni testuali dei capi, non le foto.
+Foto e dati restano sul dispositivo. A Claude viene inviata una foto solo durante l'analisi del capo corrispondente. Per le proposte di outfit vengono inviate soltanto le descrizioni testuali dei capi.
 
-## Idee per i prossimi passi
+## Roadmap
 
 - Rimozione automatica dello sfondo dalle foto
-- Calendario: outfit pianificati per i prossimi giorni
-- Statistiche dell'armadio (capi mai indossati, colori più usati)
-- Suggerimenti di acquisto per completare l'armadio
+- Pianificazione degli outfit sul calendario
+- Statistiche del guardaroba (capi mai indossati, colori più frequenti)

@@ -33,10 +33,10 @@ jobs:
           name: ArmadioAI-apk
           path: ArmadioAI.apk
 
-      - name: Pubblica una release scaricabile dal telefono
+      - name: Pubblica la release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Armadio AI – build ${{ github.run_number }}
-          body: Scarica ArmadioAI.apk dal telefono e aprilo per installarlo.
+          name: Build ${{ github.run_number }}
+          body: APK di debug generato automaticamente dal commit ${{ github.sha }}.
           files: ArmadioAI.apk
