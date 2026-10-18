@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ArmadioAI"
+rootProject.name = "WearDrop"
 include(":app")

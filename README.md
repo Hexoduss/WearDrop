@@ -2,68 +2,74 @@
 
 [![Build APK](https://github.com/Hexoduss/WearDrop/actions/workflows/build-apk.yml/badge.svg)](https://github.com/Hexoduss/WearDrop/actions/workflows/build-apk.yml)
 
-App Android per digitalizzare il proprio guardaroba e ricevere proposte di outfit generate dall'AI, a partire dai capi che si possiedono davvero.
+WearDrop is a free Android app that turns your wardrobe into a digital closet and suggests outfits built from the clothes you actually own. Everything runs on the device: no account, no API keys, no subscriptions.
 
-## Funzionalità
+## Features
 
-- **Catalogo dei capi** – aggiunta da fotocamera o galleria (fino a 20 foto per volta). Ogni foto viene analizzata da un modello di visione, che estrae nome, categoria, colori, fantasia, stile, stagione e livello di formalità. Tutti i campi sono modificabili a mano.
-- **Stylist** – tre proposte di outfit per occasione, con motivazione e consiglio di styling. Tiene conto del meteo locale, delle preferenze di stile dell'utente e dei capi indossati di recente. Può costruire gli outfit attorno a un capo scelto.
-- **Preferiti e storico** – salvataggio degli outfit e registro di cosa è stato indossato.
-- **Meteo automatico** tramite [Open-Meteo](https://open-meteo.com), senza chiave.
-- Tema chiaro e scuro, interfaccia in italiano.
+- **Digital wardrobe** – add items from the camera or the gallery (up to 20 photos at once). Each photo is analyzed on the device: the main colors come from the image, and the item type comes from ML Kit's bundled image-labeling model. Every detail can be edited, including name, category, colors, pattern, style, season and formality.
+- **Stylist** – three outfit ideas for the chosen occasion, each with a title, the reasons it works and a styling tip. A rule engine scores combinations on:
+  - color harmony (neutrals, single accent, analogous and complementary hues, tonal looks);
+  - pattern balance;
+  - formality and style for the occasion;
+  - season versus the current weather;
+  - pieces worn in the last few days.
 
-## Stack
+  Outfits can also be built around a chosen item.
+- **Favorites and history** – save outfits and keep track of what you wore.
+- **Weather-aware** – forecast from [Open-Meteo](https://open-meteo.com), free and keyless.
+- **English and Italian** – follows the system language and can be switched in Settings (per-app language).
+- Light and dark theme.
+
+## Tech stack
 
 - Kotlin, Jetpack Compose (Material 3), Navigation Compose
-- Room per la persistenza locale, Coil per le immagini, OkHttp e kotlinx.serialization per la rete
-- [Claude API](https://docs.anthropic.com) (Messages API con tool use per ottenere output JSON strutturato)
+- Room for local storage, Coil for images
+- ML Kit Image Labeling (bundled, offline) and a custom palette-based color extractor
+- Rule-based outfit engine (`stylist/OutfitEngine.kt`), no network required
+- OkHttp + kotlinx.serialization for the weather API
+- AppCompat per-app locales for the language switch
 - minSdk 26, targetSdk 34
-
-## Configurazione
-
-L'analisi dei capi e le proposte di outfit usano la Claude API di Anthropic, che è **a consumo**. Serve una chiave API personale, creata da [console.anthropic.com](https://console.anthropic.com).
-
-La chiave si inserisce nell'app (**Impostazioni → Chiave API**) e resta salvata solo sul dispositivo. Non è inclusa nel codice né nell'APK.
-
-Dalle impostazioni si sceglie anche il modello. Haiku, il predefinito, è il più economico. Sonnet e Opus offrono qualità maggiore a un costo più alto.
 
 ## Build
 
-### APK automatico
+### Automatic APK
 
-A ogni push su `main`, la workflow [`build-apk.yml`](.github/workflows/build-apk.yml) compila un APK e lo pubblica tra le [Releases](https://github.com/Hexoduss/WearDrop/releases). Tutte le build sono firmate con la stessa chiave di debug inclusa nel repository, quindi ogni aggiornamento si installa sopra il precedente.
+Every push to `main` runs [`build-apk.yml`](.github/workflows/build-apk.yml), which builds an APK and publishes it under [Releases](https://github.com/Hexoduss/WearDrop/releases). All builds are signed with the same debug key committed to the repository, so new versions install over old ones.
 
-### In locale
+### Local
 
-Requisiti: JDK 17 e Android SDK (34), oppure Android Studio.
+Requirements: JDK 17 and the Android SDK (API 34), or Android Studio.
 
 ```bash
 ./gradlew assembleDebug
 # output: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-## Struttura
+## Project structure
 
 ```
-app/src/main/java/com/armadioai/
-├── ai/          client Claude e prompt (analisi foto, proposte di outfit)
-├── data/        entità e DAO Room, impostazioni, import delle foto, repository
-├── weather/     client Open-Meteo
+app/src/main/java/com/weardrop/
+├── analysis/    on-device photo analysis (colors + item type)
+├── data/        Room entities and DAO, color palette, settings, photo import, repository
+├── stylist/     outfit rule engine and its models (occasions, titles, reasons, tips)
+├── weather/     Open-Meteo client
 └── ui/
-    ├── wardrobe/   griglia dei capi e aggiunta foto
-    ├── item/       scheda e modifica del capo
-    ├── stylist/    generazione degli outfit
-    ├── outfits/    preferiti e storico
-    ├── settings/   chiave API, modello, città, preferenze
-    └── theme/      palette e tipografia
+    ├── wardrobe/   item grid and photo import
+    ├── item/       item details and editing
+    ├── stylist/    outfit generation
+    ├── outfits/    favorites and history
+    ├── settings/   language, city, about
+    └── theme/      palette and typography
 ```
+
+Strings live in `res/values/strings.xml` (English) and `res/values-it/strings.xml` (Italian).
 
 ## Privacy
 
-Foto e dati restano sul dispositivo. A Claude viene inviata una foto solo durante l'analisi del capo corrispondente. Per le proposte di outfit vengono inviate soltanto le descrizioni testuali dei capi.
+Photos and data stay on the device, and photos are analyzed locally. The only network request is the weather forecast, which sends the city name to Open-Meteo.
 
 ## Roadmap
 
-- Rimozione automatica dello sfondo dalle foto
-- Pianificazione degli outfit sul calendario
-- Statistiche del guardaroba (capi mai indossati, colori più frequenti)
+- Background removal for item photos
+- Planning outfits on a calendar
+- Wardrobe statistics (never-worn items, most-used colors)

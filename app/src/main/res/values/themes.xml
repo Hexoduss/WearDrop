@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cream">#FBF7F2</color>
-    <color name="terracotta">#9C4A2A</color>
-
-    <style name="Theme.ArmadioAI" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@color/cream</item>
+    <style name="Theme.WearDrop" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 </resources>

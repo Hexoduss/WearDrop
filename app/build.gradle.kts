@@ -2,27 +2,29 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.armadioai"
+    namespace = "com.weardrop"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.armadioai"
+        applicationId = "com.weardrop"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 3
+        versionName = "3.0"
+
+        // Only ship English (default) and Italian resources.
+        resourceConfigurations += listOf("en", "it")
     }
 
     signingConfigs {
-        // Chiave fissa inclusa nel progetto: ogni build (anche quelle su GitHub)
-        // ha la stessa firma, così puoi aggiornare l'app senza disinstallarla.
+        // Fixed key committed to the repo: every build (including CI) has the same
+        // signature, so new versions install over old ones without losing data.
         getByName("debug") {
-            storeFile = file("armadio-debug.keystore")
+            storeFile = file("weardrop-debug.keystore")
             storePassword = "android"
             keyAlias = "armadio"
             keyPassword = "android"
@@ -60,6 +62,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.activity:activity-compose:1.9.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.5")
@@ -70,6 +73,10 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
+    // On-device image labeling (bundled model: free, works offline).
+    implementation("com.google.mlkit:image-labeling:17.0.9")
+
+    // Weather (Open-Meteo) and images.
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
     implementation("io.coil-kt:coil-compose:2.7.0")

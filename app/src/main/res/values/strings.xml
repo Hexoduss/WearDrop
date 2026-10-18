@@ -1,4 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Armadio AI</string>
+    <string name="app_name" translatable="false">WearDrop</string>
+
+    <!-- Navigation -->
+    <string name="nav_wardrobe">Wardrobe</string>
+    <string name="nav_stylist">Stylist</string>
+    <string name="nav_outfits">Outfits</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="wear_today">Wearing it today</string>
+    <string name="worn">Worn</string>
+    <string name="day_today">today</string>
+    <string name="day_yesterday">yesterday</string>
+
+    <!-- Wardrobe -->
+    <string name="wardrobe_title">My wardrobe</string>
+    <plurals name="item_count">
+        <item quantity="one">%d item</item>
+        <item quantity="other">%d items</item>
+    </plurals>
+    <string name="wardrobe_add">Add</string>
+    <string name="wardrobe_empty_title">Your wardrobe is empty</string>
+    <string name="wardrobe_empty_text">Photograph your clothes one at a time on a plain background. WearDrop detects colors and type right on your phone.</string>
+    <string name="add_sheet_title">Add items</string>
+    <string name="add_take_photo">Take a photo</string>
+    <string name="add_take_photo_hint">One item per photo, well lit</string>
+    <string name="add_from_gallery">Choose from gallery</string>
+    <string name="add_from_gallery_hint">Up to 20 photos at once</string>
+    <string name="filter_all">All</string>
+    <string name="tile_analyzing">Analyzing…</string>
+    <string name="tile_review">Check</string>
+    <string name="no_camera_app">No camera app found</string>
+    <string name="photo_read_error">Couldn\'t read one of the photos</string>
+
+    <!-- Categories: plural label for filters, singular lowercase noun for automatic names -->
+    <string name="cat_top">Tops</string>
+    <string name="cat_top_one">top</string>
+    <string name="cat_pants">Pants</string>
+    <string name="cat_pants_one">pants</string>
+    <string name="cat_skirt">Skirts</string>
+    <string name="cat_skirt_one">skirt</string>
+    <string name="cat_dress">Dresses</string>
+    <string name="cat_dress_one">dress</string>
+    <string name="cat_outerwear">Outerwear</string>
+    <string name="cat_outerwear_one">jacket</string>
+    <string name="cat_shoes">Shoes</string>
+    <string name="cat_shoes_one">shoes</string>
+    <string name="cat_accessory">Accessories</string>
+    <string name="cat_accessory_one">accessory</string>
+    <string name="cat_other">Other</string>
+    <string name="cat_other_one">item</string>
+    <!-- %1$s = color, %2$s = category noun -->
+    <string name="item_default_name">%1$s %2$s</string>
+
+    <!-- Colors (lowercase) -->
+    <string name="color_black">black</string>
+    <string name="color_white">white</string>
+    <string name="color_grey">grey</string>
+    <string name="color_dark_grey">dark grey</string>
+    <string name="color_beige">beige</string>
+    <string name="color_camel">camel</string>
+    <string name="color_brown">brown</string>
+    <string name="color_navy">navy</string>
+    <string name="color_denim">denim blue</string>
+    <string name="color_blue">blue</string>
+    <string name="color_light_blue">light blue</string>
+    <string name="color_teal">teal</string>
+    <string name="color_green">green</string>
+    <string name="color_olive">olive</string>
+    <string name="color_yellow">yellow</string>
+    <string name="color_orange">orange</string>
+    <string name="color_red">red</string>
+    <string name="color_burgundy">burgundy</string>
+    <string name="color_pink">pink</string>
+    <string name="color_purple">purple</string>
+    <string name="color_lilac">lilac</string>
+
+    <!-- Patterns, styles, seasons, formality -->
+    <string name="pattern_solid">Solid</string>
+    <string name="pattern_striped">Striped</string>
+    <string name="pattern_checked">Checked</string>
+    <string name="pattern_floral">Floral</string>
+    <string name="pattern_print">Print</string>
+    <string name="style_casual">Casual</string>
+    <string name="style_sporty">Sporty</string>
+    <string name="style_elegant">Elegant</string>
+    <string name="style_classic">Classic</string>
+    <string name="style_streetwear">Streetwear</string>
+    <string name="style_minimal">Minimal</string>
+    <string name="season_warm">Spring/Summer</string>
+    <string name="season_cold">Autumn/Winter</string>
+    <string name="season_all">All year</string>
+    <string name="formality_1">Very casual</string>
+    <string name="formality_2">Casual</string>
+    <string name="formality_3">Smart casual</string>
+    <string name="formality_4">Dressy</string>
+    <string name="formality_5">Formal</string>
+
+    <!-- Item detail -->
+    <string name="item_remove">Remove item</string>
+    <string name="item_save">Save changes</string>
+    <string name="item_saved">Changes saved</string>
+    <string name="item_removed">Item removed from your wardrobe</string>
+    <string name="item_analyzing">Analyzing the photo…</string>
+    <string name="item_review_banner">We guessed the type and colors from the photo. Check them and save.</string>
+    <string name="item_create_outfit">Build an outfit with this item</string>
+    <string name="item_name">Name</string>
+    <string name="item_name_hint">Leave empty to use “%1$s”</string>
+    <string name="item_category">Category</string>
+    <string name="item_colors">Colors (up to 3, main color first)</string>
+    <string name="item_pattern">Pattern</string>
+    <string name="item_style">Style</string>
+    <string name="item_season">Season</string>
+    <string name="item_formality">Formality: %1$s</string>
+    <string name="item_notes">Notes</string>
+    <string name="worn_never">Not worn yet</string>
+    <plurals name="worn_count">
+        <item quantity="one">Worn once · %2$s</item>
+        <item quantity="other">Worn %1$d times · last %2$s</item>
+    </plurals>
+    <string name="delete_item_title">Remove this item?</string>
+    <string name="delete_item_text">It will be removed from your wardrobe along with its photo.</string>
+
+    <!-- Stylist -->
+    <string name="stylist_headline">What should I wear today?</string>
+    <string name="occasion_label">Occasion</string>
+    <string name="occ_casual">Casual</string>
+    <string name="occ_work">Work</string>
+    <string name="occ_school">University</string>
+    <string name="occ_drinks">Drinks</string>
+    <string name="occ_dinner">Dinner out</string>
+    <string name="occ_night">Night out</string>
+    <string name="occ_date">Date</string>
+    <string name="occ_sport">Sport</string>
+    <string name="occ_ceremony">Ceremony</string>
+    <string name="occ_travel">Travel</string>
+    <string name="anchor_label">Start from this item</string>
+    <string name="anchor_remove">Remove</string>
+    <string name="stylist_generate">Create 3 outfits</string>
+    <string name="stylist_more">Show me 3 more</string>
+    <string name="stylist_need_items">Add at least one top with pants or a skirt (or a dress) to get outfit ideas.</string>
+    <string name="stylist_no_results">Couldn\'t find good combinations. Try another occasion or add more items.</string>
+    <string name="outfit_saved">Outfit saved to favorites</string>
+    <string name="marked_worn">Marked as worn today</string>
+
+    <!-- Weather -->
+    <string name="weather_loading">Checking the weather…</string>
+    <string name="weather_no_city">Set your city to get weather-aware outfits.</string>
+    <string name="weather_set">Set</string>
+    <string name="weather_retry">Retry</string>
+    <string name="weather_refresh">Refresh weather</string>
+    <string name="weather_error">Weather unavailable</string>
+    <string name="weather_city_not_found">City not found: check the name in Settings</string>
+    <string name="weather_now">%1$d° · %2$s</string>
+    <string name="weather_details">%1$s · min %2$d° max %3$d°</string>
+    <string name="weather_rain">%1$s · rain %2$d%%</string>
+    <string name="wx_clear">Clear</string>
+    <string name="wx_partly">Partly cloudy</string>
+    <string name="wx_overcast">Overcast</string>
+    <string name="wx_fog">Fog</string>
+    <string name="wx_drizzle">Drizzle</string>
+    <string name="wx_rain">Rain</string>
+    <string name="wx_snow">Snow</string>
+    <string name="wx_showers">Showers</string>
+    <string name="wx_snow_showers">Snow showers</string>
+    <string name="wx_storm">Thunderstorm</string>
+    <string name="wx_variable">Variable</string>
+
+    <!-- Outfit titles -->
+    <string name="title_sharp">Sharp &amp; polished</string>
+    <string name="title_pattern">Statement pattern</string>
+    <string name="title_tonal">Tonal look</string>
+    <string name="title_contrast">Classic contrast</string>
+    <string name="title_pop">Pop of color</string>
+    <string name="title_harmony">Color harmony</string>
+    <string name="title_layered">Layered up</string>
+    <string name="title_easy">Easy going</string>
+    <string name="title_neutral">Neutral base</string>
+    <string name="title_ready">Ready to go</string>
+
+    <!-- Outfit reasons -->
+    <string name="r_anchor">Built around the item you picked.</string>
+    <string name="r_neutrals">Neutral colors that always work together.</string>
+    <string name="r_pop">One color stands out against a neutral base.</string>
+    <string name="r_analogous">Neighboring colors create a smooth, harmonious look.</string>
+    <string name="r_complementary">Complementary colors give it energy.</string>
+    <string name="r_contrast">A timeless light-and-dark contrast.</string>
+    <string name="r_tonal">Shades of the same color for a refined effect.</string>
+    <string name="r_one_pattern">A single pattern, balanced by plain pieces.</string>
+    <string name="r_formality">The right level of dressiness for the occasion.</string>
+    <string name="r_warm_layer">A layer on top to stay warm.</string>
+    <string name="r_light">Light pieces for the heat.</string>
+    <string name="r_rain">Ready for the rain.</string>
+    <string name="r_fresh">Pieces you haven\'t worn in the last few days.</string>
+    <string name="r_no_shoes">Add shoes to your wardrobe to complete the look.</string>
+
+    <!-- Outfit tips -->
+    <string name="tip_rain">Pick shoes that can handle puddles and bring an umbrella.</string>
+    <string name="tip_cold">Layer a thin knit under the jacket for extra warmth.</string>
+    <string name="tip_hot">Choose breathable fabrics like cotton and linen.</string>
+    <string name="tip_ceremony">Polished shoes and pressed clothes make the difference.</string>
+    <string name="tip_work">Tuck the top in for a sharper silhouette.</string>
+    <string name="tip_sport">Go for comfort: nothing too tight or stiff.</string>
+    <string name="tip_pattern">Let the pattern be the star and keep accessories simple.</string>
+    <string name="tip_neutral">A colorful accessory can lift an all-neutral look.</string>
+    <string name="tip_roll">Rolling up the sleeves makes it feel more relaxed.</string>
+    <string name="tip_fit">Fit matters more than brand: adjust hems and sleeves if needed.</string>
+
+    <!-- Outfits screen -->
+    <string name="outfits_title">My outfits</string>
+    <string name="tab_favorites">Favorites</string>
+    <string name="tab_history">History</string>
+    <string name="favorites_empty_title">No saved outfits</string>
+    <string name="favorites_empty_text">When the Stylist suggests an outfit you like, tap “Save” to find it here.</string>
+    <string name="history_empty_title">No history yet</string>
+    <string name="history_empty_text">Tap “Wearing it today” on an outfit: the Stylist will avoid suggesting the same pieces over the next few days.</string>
+    <string name="saved_on">saved %1$s</string>
+    <string name="outfit_items_missing">The items in this outfit are no longer in your wardrobe.</string>
+
+    <!-- Settings -->
+    <string name="settings_language">Language</string>
+    <string name="lang_system">System default</string>
+    <string name="lang_en" translatable="false">English</string>
+    <string name="lang_it" translatable="false">Italiano</string>
+    <string name="settings_weather">Weather</string>
+    <string name="settings_city">Your city</string>
+    <string name="settings_city_hint">e.g. Milan</string>
+    <string name="settings_weather_note">Forecast from Open-Meteo, free and with no sign-up. Leave empty to turn weather off.</string>
+    <string name="settings_about">About</string>
+    <string name="settings_about_text">WearDrop is free and works on your phone: photos are analyzed on the device and never uploaded. Only your city name is sent to Open-Meteo to get the forecast.</string>
+    <string name="settings_version">Version %1$s</string>
 </resources>

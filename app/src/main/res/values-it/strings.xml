@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigazione -->
+    <string name="nav_wardrobe">Armadio</string>
+    <string name="nav_stylist">Stylist</string>
+    <string name="nav_outfits">Outfit</string>
+    <string name="nav_settings">Impostazioni</string>
+
+    <!-- Comuni -->
+    <string name="back">Indietro</string>
+    <string name="cancel">Annulla</string>
+    <string name="remove">Rimuovi</string>
+    <string name="delete">Elimina</string>
+    <string name="save">Salva</string>
+    <string name="saved">Salvato</string>
+    <string name="wear_today">Lo metto oggi</string>
+    <string name="worn">Indossato</string>
+    <string name="day_today">oggi</string>
+    <string name="day_yesterday">ieri</string>
+
+    <!-- Armadio -->
+    <string name="wardrobe_title">Il mio armadio</string>
+    <plurals name="item_count">
+        <item quantity="one">%d capo</item>
+        <item quantity="other">%d capi</item>
+    </plurals>
+    <string name="wardrobe_add">Aggiungi</string>
+    <string name="wardrobe_empty_title">Il tuo armadio è vuoto</string>
+    <string name="wardrobe_empty_text">Fotografa i tuoi capi uno alla volta su uno sfondo semplice. WearDrop riconosce colori e tipo direttamente sul telefono.</string>
+    <string name="add_sheet_title">Aggiungi capi</string>
+    <string name="add_take_photo">Scatta una foto</string>
+    <string name="add_take_photo_hint">Un capo per foto, ben illuminato</string>
+    <string name="add_from_gallery">Scegli dalla galleria</string>
+    <string name="add_from_gallery_hint">Fino a 20 foto alla volta</string>
+    <string name="filter_all">Tutti</string>
+    <string name="tile_analyzing">Analisi…</string>
+    <string name="tile_review">Da controllare</string>
+    <string name="no_camera_app">Nessuna app fotocamera trovata</string>
+    <string name="photo_read_error">Non riesco a leggere una delle foto</string>
+
+    <!-- Categorie -->
+    <string name="cat_top">Top</string>
+    <string name="cat_top_one">top</string>
+    <string name="cat_pants">Pantaloni</string>
+    <string name="cat_pants_one">pantaloni</string>
+    <string name="cat_skirt">Gonne</string>
+    <string name="cat_skirt_one">gonna</string>
+    <string name="cat_dress">Abiti</string>
+    <string name="cat_dress_one">abito</string>
+    <string name="cat_outerwear">Capispalla</string>
+    <string name="cat_outerwear_one">giacca</string>
+    <string name="cat_shoes">Scarpe</string>
+    <string name="cat_shoes_one">scarpe</string>
+    <string name="cat_accessory">Accessori</string>
+    <string name="cat_accessory_one">accessorio</string>
+    <string name="cat_other">Altro</string>
+    <string name="cat_other_one">capo</string>
+    <!-- %1$s = colore, %2$s = tipo di capo -->
+    <string name="item_default_name">%2$s color %1$s</string>
+
+    <!-- Colori -->
+    <string name="color_black">nero</string>
+    <string name="color_white">bianco</string>
+    <string name="color_grey">grigio</string>
+    <string name="color_dark_grey">grigio scuro</string>
+    <string name="color_beige">beige</string>
+    <string name="color_camel">cammello</string>
+    <string name="color_brown">marrone</string>
+    <string name="color_navy">blu navy</string>
+    <string name="color_denim">blu denim</string>
+    <string name="color_blue">blu</string>
+    <string name="color_light_blue">azzurro</string>
+    <string name="color_teal">verde petrolio</string>
+    <string name="color_green">verde</string>
+    <string name="color_olive">verde oliva</string>
+    <string name="color_yellow">giallo</string>
+    <string name="color_orange">arancione</string>
+    <string name="color_red">rosso</string>
+    <string name="color_burgundy">bordeaux</string>
+    <string name="color_pink">rosa</string>
+    <string name="color_purple">viola</string>
+    <string name="color_lilac">lilla</string>
+
+    <!-- Fantasie, stili, stagioni, formalità -->
+    <string name="pattern_solid">Tinta unita</string>
+    <string name="pattern_striped">A righe</string>
+    <string name="pattern_checked">A quadri</string>
+    <string name="pattern_floral">A fiori</string>
+    <string name="pattern_print">Stampato</string>
+    <string name="style_casual">Casual</string>
+    <string name="style_sporty">Sportivo</string>
+    <string name="style_elegant">Elegante</string>
+    <string name="style_classic">Classico</string>
+    <string name="style_streetwear">Streetwear</string>
+    <string name="style_minimal">Minimal</string>
+    <string name="season_warm">Primavera/Estate</string>
+    <string name="season_cold">Autunno/Inverno</string>
+    <string name="season_all">Tutto l\'anno</string>
+    <string name="formality_1">Molto informale</string>
+    <string name="formality_2">Casual</string>
+    <string name="formality_3">Smart casual</string>
+    <string name="formality_4">Elegante</string>
+    <string name="formality_5">Formale</string>
+
+    <!-- Scheda capo -->
+    <string name="item_remove">Rimuovi capo</string>
+    <string name="item_save">Salva modifiche</string>
+    <string name="item_saved">Modifiche salvate</string>
+    <string name="item_removed">Capo rimosso dall\'armadio</string>
+    <string name="item_analyzing">Analizzo la foto…</string>
+    <string name="item_review_banner">Abbiamo dedotto tipo e colori dalla foto. Controllali e salva.</string>
+    <string name="item_create_outfit">Crea un outfit con questo capo</string>
+    <string name="item_name">Nome</string>
+    <string name="item_name_hint">Lascia vuoto per usare “%1$s”</string>
+    <string name="item_category">Categoria</string>
+    <string name="item_colors">Colori (massimo 3, prima il principale)</string>
+    <string name="item_pattern">Fantasia</string>
+    <string name="item_style">Stile</string>
+    <string name="item_season">Stagione</string>
+    <string name="item_formality">Formalità: %1$s</string>
+    <string name="item_notes">Note</string>
+    <string name="worn_never">Non ancora indossato</string>
+    <plurals name="worn_count">
+        <item quantity="one">Indossato 1 volta · %2$s</item>
+        <item quantity="other">Indossato %1$d volte · l\'ultima %2$s</item>
+    </plurals>
+    <string name="delete_item_title">Rimuovere questo capo?</string>
+    <string name="delete_item_text">Verrà tolto dall\'armadio insieme alla sua foto.</string>
+
+    <!-- Stylist -->
+    <string name="stylist_headline">Cosa indosso oggi?</string>
+    <string name="occasion_label">Occasione</string>
+    <string name="occ_casual">Tempo libero</string>
+    <string name="occ_work">Lavoro</string>
+    <string name="occ_school">Università</string>
+    <string name="occ_drinks">Aperitivo</string>
+    <string name="occ_dinner">Cena fuori</string>
+    <string name="occ_night">Serata</string>
+    <string name="occ_date">Appuntamento</string>
+    <string name="occ_sport">Sport</string>
+    <string name="occ_ceremony">Cerimonia</string>
+    <string name="occ_travel">Viaggio</string>
+    <string name="anchor_label">Parti da questo capo</string>
+    <string name="anchor_remove">Togli</string>
+    <string name="stylist_generate">Crea 3 outfit</string>
+    <string name="stylist_more">Proponimene altri 3</string>
+    <string name="stylist_need_items">Aggiungi almeno un top con pantaloni o gonna (oppure un abito) per ricevere proposte.</string>
+    <string name="stylist_no_results">Non ho trovato buone combinazioni. Prova un\'altra occasione o aggiungi altri capi.</string>
+    <string name="outfit_saved">Outfit salvato nei preferiti</string>
+    <string name="marked_worn">Segnato come indossato oggi</string>
+
+    <!-- Meteo -->
+    <string name="weather_loading">Controllo il meteo…</string>
+    <string name="weather_no_city">Imposta la tua città per avere outfit adatti al meteo.</string>
+    <string name="weather_set">Imposta</string>
+    <string name="weather_retry">Riprova</string>
+    <string name="weather_refresh">Aggiorna meteo</string>
+    <string name="weather_error">Meteo non disponibile</string>
+    <string name="weather_city_not_found">Città non trovata: controlla il nome nelle Impostazioni</string>
+    <string name="weather_now">%1$d° · %2$s</string>
+    <string name="weather_details">%1$s · min %2$d° max %3$d°</string>
+    <string name="weather_rain">%1$s · pioggia %2$d%%</string>
+    <string name="wx_clear">Sereno</string>
+    <string name="wx_partly">Poco nuvoloso</string>
+    <string name="wx_overcast">Coperto</string>
+    <string name="wx_fog">Nebbia</string>
+    <string name="wx_drizzle">Pioviggine</string>
+    <string name="wx_rain">Pioggia</string>
+    <string name="wx_snow">Neve</string>
+    <string name="wx_showers">Rovesci</string>
+    <string name="wx_snow_showers">Rovesci di neve</string>
+    <string name="wx_storm">Temporale</string>
+    <string name="wx_variable">Variabile</string>
+
+    <!-- Titoli outfit -->
+    <string name="title_sharp">Curato ed elegante</string>
+    <string name="title_pattern">Fantasia protagonista</string>
+    <string name="title_tonal">Tono su tono</string>
+    <string name="title_contrast">Contrasto classico</string>
+    <string name="title_pop">Tocco di colore</string>
+    <string name="title_harmony">Armonia di colori</string>
+    <string name="title_layered">A strati</string>
+    <string name="title_easy">Comodo e pratico</string>
+    <string name="title_neutral">Base neutra</string>
+    <string name="title_ready">Pronto per uscire</string>
+
+    <!-- Motivazioni -->
+    <string name="r_anchor">Costruito attorno al capo che hai scelto.</string>
+    <string name="r_neutrals">Colori neutri che stanno sempre bene insieme.</string>
+    <string name="r_pop">Un solo colore spicca su una base neutra.</string>
+    <string name="r_analogous">Colori vicini creano un look armonioso.</string>
+    <string name="r_complementary">Colori complementari danno energia al look.</string>
+    <string name="r_contrast">Un contrasto chiaro-scuro senza tempo.</string>
+    <string name="r_tonal">Sfumature dello stesso colore per un effetto raffinato.</string>
+    <string name="r_one_pattern">Una sola fantasia, bilanciata da capi in tinta unita.</string>
+    <string name="r_formality">Il livello di eleganza giusto per l\'occasione.</string>
+    <string name="r_warm_layer">Uno strato in più per stare al caldo.</string>
+    <string name="r_light">Capi leggeri per il caldo.</string>
+    <string name="r_rain">Pronto per la pioggia.</string>
+    <string name="r_fresh">Capi che non hai indossato negli ultimi giorni.</string>
+    <string name="r_no_shoes">Aggiungi delle scarpe all\'armadio per completare il look.</string>
+
+    <!-- Consigli -->
+    <string name="tip_rain">Scegli scarpe che reggono le pozzanghere e porta l\'ombrello.</string>
+    <string name="tip_cold">Aggiungi una maglia sottile sotto la giacca per più calore.</string>
+    <string name="tip_hot">Scegli tessuti traspiranti come cotone e lino.</string>
+    <string name="tip_ceremony">Scarpe lucidate e capi stirati fanno la differenza.</string>
+    <string name="tip_work">Infila il top nei pantaloni per una silhouette più ordinata.</string>
+    <string name="tip_sport">Punta sulla comodità: niente di troppo stretto o rigido.</string>
+    <string name="tip_pattern">Lascia protagonista la fantasia e tieni semplici gli accessori.</string>
+    <string name="tip_neutral">Un accessorio colorato può ravvivare un look tutto neutro.</string>
+    <string name="tip_roll">Arrotolare le maniche rende tutto più rilassato.</string>
+    <string name="tip_fit">La vestibilità conta più della marca: sistema orli e maniche se serve.</string>
+
+    <!-- I miei outfit -->
+    <string name="outfits_title">I miei outfit</string>
+    <string name="tab_favorites">Preferiti</string>
+    <string name="tab_history">Storico</string>
+    <string name="favorites_empty_title">Nessun outfit salvato</string>
+    <string name="favorites_empty_text">Quando lo Stylist ti propone un outfit che ti piace, tocca “Salva” per ritrovarlo qui.</string>
+    <string name="history_empty_title">Ancora nessuno storico</string>
+    <string name="history_empty_text">Tocca “Lo metto oggi” su un outfit: lo Stylist eviterà di riproporti gli stessi capi nei giorni seguenti.</string>
+    <string name="saved_on">salvato %1$s</string>
+    <string name="outfit_items_missing">I capi di questo outfit non sono più nell\'armadio.</string>
+
+    <!-- Impostazioni -->
+    <string name="settings_language">Lingua</string>
+    <string name="lang_system">Lingua del sistema</string>
+    <string name="settings_weather">Meteo</string>
+    <string name="settings_city">La tua città</string>
+    <string name="settings_city_hint">Es. Milano</string>
+    <string name="settings_weather_note">Previsioni da Open-Meteo, gratuite e senza registrazione. Lascia vuoto per disattivare il meteo.</string>
+    <string name="settings_about">Informazioni</string>
+    <string name="settings_about_text">WearDrop è gratuita e funziona sul telefono: le foto vengono analizzate sul dispositivo e non vengono mai caricate online. Solo il nome della tua città viene inviato a Open-Meteo per le previsioni.</string>
+    <string name="settings_version">Versione %1$s</string>
+</resources>
