@@ -25,13 +25,13 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon --stacktrace
-          cp app/build/outputs/apk/debug/app-debug.apk ArmadioAI.apk
+          cp app/build/outputs/apk/debug/app-debug.apk WearDrop.apk
 
       - name: Allega l'APK alla build
         uses: actions/upload-artifact@v4
         with:
-          name: ArmadioAI-apk
-          path: ArmadioAI.apk
+          name: WearDrop.apk
+          path: WearDrop.apk
 
       - name: Pubblica la release
         uses: softprops/action-gh-release@v2
@@ -39,4 +39,4 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: Build ${{ github.run_number }}
           body: APK di debug generato automaticamente dal commit ${{ github.sha }}.
-          files: ArmadioAI.apk
+          files: WearDrop.apk

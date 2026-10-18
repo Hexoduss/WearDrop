@@ -18,6 +18,10 @@ android {
 
         // Only ship English (default) and Italian resources.
         resourceConfigurations += listOf("en", "it")
+
+        // Phones only: skips the emulator (x86) copies of ML Kit's native library
+        // and makes the APK much smaller.
+        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
     }
 
     signingConfigs {
